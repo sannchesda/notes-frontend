@@ -27,70 +27,44 @@
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
-              <input
-                id="firstName"
-                v-model="formData.firstName"
-                type="text"
-                required
+              <input id="firstName" v-model="formData.firstName" type="text" required
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder="John"
-              />
+                placeholder="John" />
             </div>
             <div>
               <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
-              <input
-                id="lastName"
-                v-model="formData.lastName"
-                type="text"
-                required
+              <input id="lastName" v-model="formData.lastName" type="text" required
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Doe"
-              />
+                placeholder="Doe" />
             </div>
           </div>
 
           <!-- Email -->
           <div>
             <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
-            <input
-              id="email"
-              v-model="formData.email"
-              type="email"
-              required
+            <input id="email" v-model="formData.email" type="email" required
               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              placeholder="john@example.com"
-            />
+              placeholder="john@example.com" />
           </div>
 
           <!-- Password -->
           <div>
             <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-            <input
-              id="password"
-              v-model="formData.password"
-              type="password"
-              required
-              minlength="6"
+            <input id="password" v-model="formData.password" type="password" required minlength="6"
               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              placeholder="At least 6 characters"
-            />
+              placeholder="At least 6 characters" />
             <p class="mt-1 text-xs text-gray-500">Password must be at least 6 characters long</p>
           </div>
 
           <!-- Confirm Password -->
           <div>
             <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-            <input
-              id="confirmPassword"
-              v-model="formData.confirmPassword"
-              type="password"
-              required
+            <input id="confirmPassword" v-model="formData.confirmPassword" type="password" required
               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               :class="{ 'border-red-500': formData.password && formData.confirmPassword && formData.password !== formData.confirmPassword }"
-              placeholder="Confirm your password"
-            />
-            <p v-if="formData.password && formData.confirmPassword && formData.password !== formData.confirmPassword" 
-               class="mt-1 text-xs text-red-600">
+              placeholder="Confirm your password" />
+            <p v-if="formData.password && formData.confirmPassword && formData.password !== formData.confirmPassword"
+              class="mt-1 text-xs text-red-600">
               Passwords do not match
             </p>
           </div>
@@ -98,11 +72,8 @@
 
         <!-- Submit Button -->
         <div>
-          <button
-            type="submit"
-            :disabled="authStore.loading || !isFormValid"
-            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
+          <button type="submit" :disabled="authStore.loading || !isFormValid"
+            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed">
             <span v-if="authStore.loading" class="absolute left-0 inset-y-0 flex items-center pl-3">
               <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
             </span>
@@ -131,16 +102,16 @@ const formData = reactive({
 })
 
 const isFormValid = computed(() => {
-  return formData.firstName && 
-         formData.lastName && 
-         formData.email && 
-         formData.password.length >= 6 && 
-         formData.password === formData.confirmPassword
+  return formData.firstName &&
+    formData.lastName &&
+    formData.email &&
+    formData.password.length >= 6 &&
+    formData.password === formData.confirmPassword
 })
 
 const handleRegister = async () => {
   if (!isFormValid.value) return
-  
+
   try {
     await authStore.register({
       email: formData.email,
@@ -148,7 +119,7 @@ const handleRegister = async () => {
       firstName: formData.firstName,
       lastName: formData.lastName
     })
-    
+
     // Redirect to notes page on successful registration
     router.push('/')
   } catch (error) {

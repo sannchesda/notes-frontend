@@ -9,19 +9,15 @@
             <p class="text-sm text-gray-600 mt-1">Welcome back, {{ authStore.userFullName }}!</p>
           </div>
           <div class="flex items-center gap-4">
-            <button
-              @click="showCreateModal = true"
-              class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
-            >
+            <button @click="showCreateModal = true"
+              class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
               </svg>
               New Note
             </button>
-            <button
-              @click="handleLogout"
-              class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
-            >
+            <button @click="handleLogout"
+              class="text-gray-600 hover:text-gray-800 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors">
               Logout
             </button>
           </div>
@@ -36,32 +32,26 @@
         <!-- Search -->
         <div class="flex-1">
           <div class="relative">
-            <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none"
+              stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
-            <input
-              v-model="notesStore.searchTerm"
-              type="text"
-              placeholder="Search notes..."
-              class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
+            <input v-model="notesStore.searchTerm" type="text" placeholder="Search notes..."
+              class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
           </div>
         </div>
 
         <!-- Sort Controls -->
         <div class="flex gap-2">
-          <select
-            v-model="notesStore.sortBy"
-            class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
+          <select v-model="notesStore.sortBy"
+            class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
             <option value="updatedAt">Last Updated</option>
             <option value="createdAt">Created Date</option>
             <option value="title">Title</option>
           </select>
-          <button
-            @click="toggleSortOrder"
-            class="border border-gray-300 rounded-lg px-3 py-2 hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
+          <button @click="toggleSortOrder"
+            class="border border-gray-300 rounded-lg px-3 py-2 hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
             {{ notesStore.sortOrder === 'asc' ? '↑' : '↓' }}
           </button>
         </div>
@@ -81,27 +71,18 @@
 
       <!-- Notes Grid -->
       <div v-else-if="notesStore.filteredAndSortedNotes.length > 0" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <div
-          v-for="note in notesStore.filteredAndSortedNotes"
-          :key="note.id"
+        <div v-for="note in notesStore.filteredAndSortedNotes" :key="note.id"
           class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow cursor-pointer"
-          @click="openNote(note)"
-        >
+          @click="openNote(note)">
           <h3 class="text-lg font-semibold text-gray-900 mb-2 truncate">{{ note.title }}</h3>
           <p class="text-gray-600 text-sm mb-4 line-clamp-3">{{ note.content || 'No content' }}</p>
           <div class="flex justify-between items-center text-xs text-gray-500">
             <span>{{ formatDate(note.updatedAt) }}</span>
             <div class="flex gap-2">
-              <button
-                @click.stop="editNote(note)"
-                class="text-blue-600 hover:text-blue-800"
-              >
+              <button @click.stop="editNote(note)" class="text-blue-600 hover:text-blue-800">
                 Edit
               </button>
-              <button
-                @click.stop="confirmDelete(note)"
-                class="text-red-600 hover:text-red-800"
-              >
+              <button @click.stop="confirmDelete(note)" class="text-red-600 hover:text-red-800">
                 Delete
               </button>
             </div>
@@ -112,7 +93,9 @@
       <!-- Empty State -->
       <div v-else class="text-center py-12">
         <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+          </path>
         </svg>
         <h3 class="mt-2 text-sm font-medium text-gray-900">No notes found</h3>
         <p class="mt-1 text-sm text-gray-500">Get started by creating a new note.</p>
@@ -120,7 +103,8 @@
     </main>
 
     <!-- Create/Edit Modal -->
-    <div v-if="showCreateModal || showEditModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div v-if="showCreateModal || showEditModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div class="p-6">
           <div class="flex justify-between items-center mb-4">
@@ -137,40 +121,25 @@
           <form @submit.prevent="saveNote">
             <div class="mb-4">
               <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Title *</label>
-              <input
-                id="title"
-                v-model="formData.title"
-                type="text"
-                required
+              <input id="title" v-model="formData.title" type="text" required
                 class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Enter note title..."
-              />
+                placeholder="Enter note title..." />
             </div>
 
             <div class="mb-6">
               <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Content</label>
-              <textarea
-                id="content"
-                v-model="formData.content"
-                rows="10"
+              <textarea id="content" v-model="formData.content" rows="10"
                 class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Enter note content..."
-              ></textarea>
+                placeholder="Enter note content..."></textarea>
             </div>
 
             <div class="flex gap-3 justify-end">
-              <button
-                type="button"
-                @click="closeModal"
-                class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
-              >
+              <button type="button" @click="closeModal"
+                class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
                 Cancel
               </button>
-              <button
-                type="submit"
-                :disabled="!formData.title.trim()"
-                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
+              <button type="submit" :disabled="!formData.title.trim()"
+                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
                 {{ showCreateModal ? 'Create Note' : 'Update Note' }}
               </button>
             </div>
@@ -180,7 +149,8 @@
     </div>
 
     <!-- View Note Modal -->
-    <div v-if="showViewModal && selectedNote" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div v-if="showViewModal && selectedNote"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         <div class="p-6">
           <div class="flex justify-between items-start mb-4">
@@ -192,12 +162,11 @@
               </div>
             </div>
             <div class="flex gap-2">
-              <button
-                @click="editNote(selectedNote)"
-                class="text-blue-600 hover:text-blue-800 p-2"
-              >
+              <button @click="editNote(selectedNote)" class="text-blue-600 hover:text-blue-800 p-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                  </path>
                 </svg>
               </button>
               <button @click="showViewModal = false" class="text-gray-400 hover:text-gray-600 p-2">
@@ -216,12 +185,15 @@
     </div>
 
     <!-- Delete Confirmation Modal -->
-    <div v-if="showDeleteModal && noteToDelete" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div v-if="showDeleteModal && noteToDelete"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
         <div class="p-6">
           <div class="flex items-center mb-4">
             <svg class="w-6 h-6 text-red-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 6.5c-.77.833-.192 2.5 1.732 2.5z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 6.5c-.77.833-.192 2.5 1.732 2.5z">
+              </path>
             </svg>
             <h3 class="text-lg font-medium text-gray-900">Delete Note</h3>
           </div>
@@ -229,16 +201,11 @@
             Are you sure you want to delete "{{ noteToDelete.title }}"? This action cannot be undone.
           </p>
           <div class="flex gap-3 justify-end">
-            <button
-              @click="showDeleteModal = false"
-              class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
-            >
+            <button @click="showDeleteModal = false"
+              class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
               Cancel
             </button>
-            <button
-              @click="deleteNote"
-              class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
-            >
+            <button @click="deleteNote" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
               Delete
             </button>
           </div>
@@ -358,12 +325,3 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
-.line-clamp-3 {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-}
-</style>

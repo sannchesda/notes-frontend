@@ -8,9 +8,12 @@ export const useAuthStore = defineStore('auth', () => {
   const loading = ref(false)
   const error = ref<string | null>(null)
 
-  const isAuthenticated = computed(() => !!token.value && !!user.value)
+  const isAuthenticated = computed(() => !!token.value)
+  const userFullName = computed(() => 
+    user.value ? `${user.value.firstName} ${user.value.lastName}` : ''
+  )
 
-  // Initialize auth state from localStorage
+  // Initialize from localStorage
   const initializeAuth = () => {
     const storedToken = localStorage.getItem('token')
     const storedUser = localStorage.getItem('user')
@@ -27,12 +30,9 @@ export const useAuthStore = defineStore('auth', () => {
     
     try {
       const response = await authApi.login(credentials)
-      
-      // Store token and user
       token.value = response.token
       user.value = response.user
       
-      // Save to localStorage
       localStorage.setItem('token', response.token)
       localStorage.setItem('user', JSON.stringify(response.user))
       
@@ -51,12 +51,9 @@ export const useAuthStore = defineStore('auth', () => {
     
     try {
       const response = await authApi.register(userData)
-      
-      // Store token and user
       token.value = response.token
       user.value = response.user
       
-      // Save to localStorage
       localStorage.setItem('token', response.token)
       localStorage.setItem('user', JSON.stringify(response.user))
       
@@ -72,8 +69,6 @@ export const useAuthStore = defineStore('auth', () => {
   const logout = () => {
     user.value = null
     token.value = null
-    
-    // Clear localStorage
     localStorage.removeItem('token')
     localStorage.removeItem('user')
   }
@@ -81,12 +76,6 @@ export const useAuthStore = defineStore('auth', () => {
   const clearError = () => {
     error.value = null
   }
-
-  // Get user's full name
-  const userFullName = computed(() => {
-    if (!user.value) return ''
-    return `${user.value.firstName} ${user.value.lastName}`
-  })
 
   return {
     user,
