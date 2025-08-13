@@ -2,9 +2,9 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ gh-page ]
+    branches: [ main ]
   pull_request:
-    branches: [ gh-page ]
+    branches: [ main ]
 
 permissions:
   contents: read
@@ -35,7 +35,7 @@ jobs:
     - name: Build
       run: npm run build
       env:
-        VITE_API_BASE_URL: https://your-backend-api.com/api
+        VITE_API_BASE_URL: https://demo-notes-backend-production.up.railway.app/api
 
     - name: Setup Pages
       uses: actions/configure-pages@v4
